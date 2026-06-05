@@ -1,4 +1,4 @@
-<img width="1905" height="878" alt="image" src="https://github.com/user-attachments/assets/93eb2bc2-4e97-404a-8b69-13a01b34310c" /># 📈 CRISP-DM Linear Regression & Outlier Detector
+# 📈 CRISP-DM Linear Regression & Outlier Detector
 
 📊 **Interactive Data Science Anomaly Detection App**
 
@@ -9,11 +9,15 @@
 
 🔗 **Streamlit Cloud Demo**: [chenyu-hw4-linear-regression.streamlit.app](https://chenyu-hw4-linear-regression.streamlit.app)
 
-### 📊 Demo Preview
-![Demo](demo.png)
+---
 
-### 📊 Model Output Preview
-![Linear Regression & Outliers Plot](linear_regression_outliers.png)
+## 🖼️ Screenshots & Previews
+
+| 🌐 Streamlit Interactive Dashboard | 📊 Model Output Plot (Matplotlib) |
+| :---: | :---: |
+| <img src="https://github.com/user-attachments/assets/93eb2bc2-4e97-404a-8b69-13a01b34310c" width="100%" alt="Streamlit app screenshot"/> | <img src="linear_regression_outliers.png" width="100%" alt="Linear regression outliers plot"/> |
+
+---
 
 An interactive, beginner-friendly Python project that implements synthetic data generation, Ordinary Least-Squares (OLS) linear regression model fitting, evaluation metrics computation, and residual-based outlier identification. The project is designed strictly according to the **CRISP-DM (Cross-Industry Standard Process for Data Mining)** methodology.
 
