@@ -1,0 +1,14 @@
+# Ignore linear regression output image and CSV data files
+*.png
+*.csv
+
+# Python caches and local environment configurations
+__pycache__/
+*.py[cod]
+*$py.class
+.env
+.venv
+env/
+venv/
+ENV/
+.streamlit/
