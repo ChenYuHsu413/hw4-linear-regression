@@ -1,4 +1,4 @@
-# 📈 CRISP-DM Linear Regression & Outlier Detector
+<img width="1905" height="878" alt="image" src="https://github.com/user-attachments/assets/93eb2bc2-4e97-404a-8b69-13a01b34310c" /># 📈 CRISP-DM Linear Regression & Outlier Detector
 
 📊 **Interactive Data Science Anomaly Detection App**
 
@@ -8,6 +8,9 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
 
 🔗 **Streamlit Cloud Demo**: [chenyu-hw4-linear-regression.streamlit.app](https://chenyu-hw4-linear-regression.streamlit.app)
+
+### 📊 Demo Preview
+![Demo](demo.png)
 
 ### 📊 Model Output Preview
 ![Linear Regression & Outliers Plot](linear_regression_outliers.png)
