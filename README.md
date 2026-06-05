@@ -9,6 +9,9 @@
 
 🔗 **Streamlit Cloud Demo**: [chenyu-hw4-linear-regression.streamlit.app](https://chenyu-hw4-linear-regression.streamlit.app)
 
+### 📊 Model Output Preview
+![Linear Regression & Outliers Plot](linear_regression_outliers.png)
+
 An interactive, beginner-friendly Python project that implements synthetic data generation, Ordinary Least-Squares (OLS) linear regression model fitting, evaluation metrics computation, and residual-based outlier identification. The project is designed strictly according to the **CRISP-DM (Cross-Industry Standard Process for Data Mining)** methodology.
 
 ---

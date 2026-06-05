@@ -1,5 +1,4 @@
-# Ignore linear regression output image and CSV data files
-*.png
+# Ignore linear regression output CSV data files
 *.csv
 
 # Python caches and local environment configurations
