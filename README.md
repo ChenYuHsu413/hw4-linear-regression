@@ -2,7 +2,6 @@
 
 📊 **Interactive Data Science Anomaly Detection App**
 
-[![Streamlit App](https://static.streamlit.io/badge_github.svg)](https://chenyu-hw4-linear-regression.streamlit.app)
 [![Python 3.8+](https://img.shields.io/badge/Python-3.8+-blue.svg?logo=python&logoColor=white)](https://www.python.org/)
 [![Streamlit](https://img.shields.io/badge/Streamlit-1.55.0-FF4B4B.svg?logo=streamlit&logoColor=white)](https://streamlit.io/)
 [![Scikit-Learn](https://img.shields.io/badge/scikit--learn-1.9.0-orange.svg?logo=scikit-learn&logoColor=white)](https://scikit-learn.org/)
