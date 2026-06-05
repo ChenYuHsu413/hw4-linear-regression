@@ -13,9 +13,11 @@
 
 ## 🖼️ Screenshots & Previews
 
-| 🌐 Streamlit Interactive Dashboard | 📊 Model Output Plot (Matplotlib) |
-| :---: | :---: |
-| <img src="https://github.com/user-attachments/assets/93eb2bc2-4e97-404a-8b69-13a01b34310c" width="100%" alt="Streamlit app screenshot"/> | <img src="linear_regression_outliers.png" width="100%" alt="Linear regression outliers plot"/> |
+### 🌐 Streamlit Interactive Dashboard
+![Streamlit app screenshot](https://github.com/user-attachments/assets/93eb2bc2-4e97-404a-8b69-13a01b34310c)
+
+### 📊 Model Output Plot (Matplotlib)
+![Linear regression outliers plot](linear_regression_outliers.png)
 
 ---
 
