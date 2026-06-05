@@ -37,137 +37,422 @@ def home():
     <!DOCTYPE html>
     <html>
     <head>
-        <title>CRISP-DM Regression API Dashboard</title>
+        <title>CRISP-DM Regression Dashboard</title>
         <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;600;700&display=swap" rel="stylesheet">
         <style>
             body {
                 font-family: 'Outfit', sans-serif;
                 background-color: #f4f6f9;
-                color: #333333;
+                color: #2b2b2b;
                 margin: 0;
                 padding: 0;
+                display: flex;
+                flex-direction: column;
+                min-height: 100vh;
             }
             .header {
                 background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
                 color: white;
-                padding: 3.5rem 2rem;
-                text-align: center;
+                padding: 1.5rem 2rem;
                 box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
             }
             .header h1 {
                 margin: 0;
-                font-size: 2.6rem;
+                font-size: 1.8rem;
                 font-weight: 700;
                 letter-spacing: -0.5px;
             }
             .header p {
-                margin: 0.6rem 0 0 0;
-                font-size: 1.2rem;
-                opacity: 0.95;
+                margin: 0.2rem 0 0 0;
+                font-size: 1rem;
+                opacity: 0.9;
             }
-            .container {
-                max-width: 850px;
-                margin: 2.5rem auto;
-                padding: 2rem;
+            .api-link {
+                background-color: rgba(255, 255, 255, 0.2);
+                color: white;
+                text-decoration: none;
+                padding: 0.5rem 1rem;
+                border-radius: 6px;
+                font-weight: 600;
+                font-size: 0.9rem;
+                transition: background-color 0.2s;
+            }
+            .api-link:hover {
+                background-color: rgba(255, 255, 255, 0.35);
+            }
+            .layout-container {
+                display: flex;
+                flex: 1;
+                max-width: 1600px;
+                margin: 1.5rem auto;
+                width: 95%;
+                gap: 1.5rem;
+            }
+            .sidebar {
+                flex: 0 0 320px;
                 background-color: white;
                 border-radius: 12px;
-                box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+                padding: 1.5rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+                height: fit-content;
             }
-            h2 {
+            .sidebar h2 {
+                font-size: 1.2rem;
                 color: #1e3c72;
-                font-weight: 600;
                 margin-top: 0;
                 border-bottom: 2px solid #e9ecef;
                 padding-bottom: 0.5rem;
             }
-            .endpoint {
-                padding: 1.5rem;
-                margin-bottom: 1.5rem;
-                border: 1px solid #e9ecef;
-                border-radius: 8px;
-                transition: transform 0.2s, box-shadow 0.2s;
-                background-color: #fafbfc;
+            .control-group {
+                margin-bottom: 1.2rem;
             }
-            .endpoint:hover {
-                transform: translateY(-2px);
-                box-shadow: 0 6px 12px rgba(0,0,0,0.05);
-                background-color: #ffffff;
-            }
-            .badge {
-                display: inline-block;
-                padding: 0.3rem 0.7rem;
+            .control-label {
+                display: flex;
+                justify-content: space-between;
                 font-size: 0.85rem;
-                font-weight: 700;
-                border-radius: 4px;
-                color: white;
-                text-transform: uppercase;
-                margin-right: 0.6rem;
-            }
-            .badge-get { background-color: #2b82c9; }
-            .url {
-                font-family: 'Courier New', Courier, monospace;
-                font-size: 1.15rem;
-                color: #c0392b;
-                font-weight: 700;
-            }
-            .desc {
-                margin-top: 0.6rem;
-                color: #555555;
-                line-height: 1.5;
-            }
-            .btn {
-                display: inline-block;
-                margin-top: 1rem;
-                padding: 0.55rem 1.1rem;
-                background-color: #2a5298;
-                color: white;
-                text-decoration: none;
-                border-radius: 6px;
                 font-weight: 600;
-                transition: background-color 0.2s, box-shadow 0.2s;
+                color: #6c757d;
+                margin-bottom: 0.4rem;
             }
-            .btn:hover {
-                background-color: #1e3c72;
-                box-shadow: 0 4px 8px rgba(30,60,114,0.2);
+            .control-input {
+                width: 100%;
+                box-sizing: border-box;
+            }
+            .main-content {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 1.5rem;
+            }
+            .metrics-row {
+                display: flex;
+                gap: 1rem;
+                width: 100%;
+            }
+            .metric-card {
+                background-color: white;
+                border-radius: 10px;
+                padding: 1.2rem;
+                flex: 1;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.03);
+                border: 1px solid #e9ecef;
+                transition: transform 0.2s;
+            }
+            .metric-card:hover {
+                transform: translateY(-2px);
+            }
+            .card-title {
+                color: #6c757d;
+                font-size: 0.8rem;
+                font-weight: 600;
+                text-transform: uppercase;
+                margin-bottom: 0.4rem;
+                letter-spacing: 0.5px;
+            }
+            .card-value {
+                font-size: 1.6rem;
+                font-weight: 700;
+                color: #2b2b2b;
+            }
+            .card-subtext {
+                font-size: 0.8rem;
+                color: #6c757d;
+                margin-top: 0.25rem;
+            }
+            .card-error-green { color: #2ec4b6; font-weight: bold; }
+            .card-error-red { color: #e74c3c; font-weight: bold; }
+            
+            .dashboard-body {
+                display: flex;
+                gap: 1.5rem;
+            }
+            .plot-container {
+                flex: 7;
+                background-color: white;
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+            }
+            .plot-container h3 {
+                margin-top: 0;
+                color: #1e3c72;
+                align-self: flex-start;
+            }
+            .plot-container img {
+                width: 100%;
+                border-radius: 8px;
+                box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            }
+            .table-container {
+                flex: 5;
+                background-color: white;
+                border-radius: 12px;
+                padding: 1.5rem;
+                box-shadow: 0 4px 10px rgba(0,0,0,0.04);
+                display: flex;
+                flex-direction: column;
+            }
+            .table-container h3 {
+                margin-top: 0;
+                color: #1e3c72;
+            }
+            table {
+                width: 100%;
+                border-collapse: collapse;
+                font-size: 0.85rem;
+                margin-top: 0.5rem;
+            }
+            th, td {
+                padding: 0.6rem 0.8rem;
+                text-align: left;
+                border-bottom: 1px solid #e9ecef;
+            }
+            th {
+                background-color: #f8f9fa;
+                font-weight: 600;
+                color: #495057;
+            }
+            tr:hover {
+                background-color: #f1f3f5;
+            }
+            .rank-badge {
+                background-color: #f1c40f;
+                color: black;
+                font-weight: 700;
+                padding: 0.15rem 0.4rem;
+                border-radius: 4px;
+                font-size: 0.8rem;
             }
         </style>
     </head>
     <body>
         <div class="header">
-            <h1>📈 CRISP-DM Regression & Outlier Microservice</h1>
-            <p>A FastAPI framework backend for real-time model analysis and data rendering</p>
+            <div>
+                <h1>📈 CRISP-DM Regression & Outlier SPA Dashboard</h1>
+                <p>FastAPI backend real-time calculations and dynamic data rendering</p>
+            </div>
+            <a href="/docs" class="api-link" target="_blank">📖 Open API Docs</a>
         </div>
-        <div class="container">
-            <h2>Available REST API Endpoints</h2>
-            
-            <!-- Swagger docs -->
-            <div class="endpoint">
-                <span class="badge badge-get">GET</span>
-                <span class="url">/docs</span>
-                <div class="desc">Interactive OpenAPI / Swagger UI. Test input parameter sensitivities and explore data schemas directly in your browser.</div>
-                <a href="/docs" class="btn" target="_blank">Open Swagger UI Docs</a>
+        
+        <div class="layout-container">
+            <!-- SIDEBAR -->
+            <div class="sidebar">
+                <h2>⚙️ Configuration</h2>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Sample Size (n)</span>
+                        <span id="n-val">500</span>
+                    </div>
+                    <input type="range" id="input-n" class="control-input" min="10" max="2000" step="10" value="500">
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>True Slope (a)</span>
+                        <span id="a-val">8.0</span>
+                    </div>
+                    <input type="range" id="input-a" class="control-input" min="-50" max="50" step="0.5" value="8">
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>True Intercept (b)</span>
+                        <span id="b-val">40.0</span>
+                    </div>
+                    <input type="range" id="input-b" class="control-input" min="0" max="100" step="1" value="40">
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Noise Variance (var)</span>
+                    </div>
+                    <input type="number" id="input-var" style="width: 100%; padding: 0.4rem; border: 1px solid #ced4da; border-radius: 4px;" min="0" max="100000" step="10" value="100000">
+                </div>
+                
+                <div class="control-group">
+                    <div class="control-label">
+                        <span>Random Seed</span>
+                    </div>
+                    <input type="number" id="input-seed" style="width: 100%; padding: 0.4rem; border: 1px solid #ced4da; border-radius: 4px;" min="0" value="42">
+                </div>
             </div>
             
-            <!-- Analyze json -->
-            <div class="endpoint">
-                <span class="badge badge-get">GET</span>
-                <span class="url">/analyze</span>
-                <div class="desc">Executes the CRISP-DM pipeline: generates data, trains the OLS estimator, evaluates model metrics, and returns the top 10 outlier observations in structured JSON. Supports query parameters: <code>n</code>, <code>a</code>, <code>b</code>, <code>var</code>, <code>seed</code>, <code>top_n</code>.</div>
-                <a href="/analyze?n=500&a=8&b=40&var=200" class="btn" target="_blank">Run Analysis JSON</a>
-            </div>
-            
-            <!-- Plot image -->
-            <div class="endpoint">
-                <span class="badge badge-get">GET</span>
-                <span class="url">/plot</span>
-                <div class="desc">Streams a real-time dynamically rendered PNG visualization showing normal observations, the OLS regression model line, and highlighted outlier rankings. Supports query parameters: <code>n</code>, <code>a</code>, <code>b</code>, <code>var</code>, <code>seed</code>, <code>top_n</code>.</div>
-                <a href="/plot?n=500&a=8&b=40&var=200" class="btn" target="_blank">Generate Live PNG Plot</a>
+            <!-- MAIN PANEL -->
+            <div class="main-content">
+                <!-- Metrics row -->
+                <div class="metrics-row">
+                    <div class="metric-card">
+                        <div class="card-title">Estimated Slope (a)</div>
+                        <div id="metric-slope" class="card-value">-</div>
+                        <div id="metric-slope-sub" class="card-subtext">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="card-title">Estimated Intercept (b)</div>
+                        <div id="metric-intercept" class="card-value">-</div>
+                        <div id="metric-intercept-sub" class="card-subtext">-</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="card-title">R-squared Score</div>
+                        <div id="metric-r2" class="card-value">-</div>
+                        <div class="card-subtext">Variance Explained</div>
+                    </div>
+                    <div class="metric-card">
+                        <div class="card-title">RMSE (Residual SD)</div>
+                        <div id="metric-rmse" class="card-value">-</div>
+                        <div id="metric-rmse-sub" class="card-subtext">-</div>
+                    </div>
+                </div>
+                
+                <!-- Plot and table body -->
+                <div class="dashboard-body">
+                    <!-- Left: Plot -->
+                    <div class="plot-container">
+                        <h3>Model Fit & Outliers Visualization</h3>
+                        <img id="dashboard-plot" src="" alt="Regression Plot">
+                    </div>
+                    
+                    <!-- Right: Table -->
+                    <div class="table-container">
+                        <h3>Top 10 Outliers</h3>
+                        <table id="outliers-table">
+                            <thead>
+                                <tr>
+                                    <th>Rank</th>
+                                    <th>X</th>
+                                    <th>Actual Y</th>
+                                    <th>Residual</th>
+                                    <th>Abs Residual</th>
+                                </tr>
+                            </thead>
+                            <tbody id="outliers-tbody">
+                                <tr>
+                                    <td colspan="5" style="text-align: center; color: #888;">Loading outlier records...</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
             </div>
         </div>
+        
+        <script>
+            // Elements
+            const inputN = document.getElementById('input-n');
+            const inputA = document.getElementById('input-a');
+            const inputB = document.getElementById('input-b');
+            const inputVar = document.getElementById('input-var');
+            const inputSeed = document.getElementById('input-seed');
+            
+            const textN = document.getElementById('n-val');
+            const textA = document.getElementById('a-val');
+            const textB = document.getElementById('b-val');
+            
+            const metricSlope = document.getElementById('metric-slope');
+            const metricSlopeSub = document.getElementById('metric-slope-sub');
+            const metricIntercept = document.getElementById('metric-intercept');
+            const metricInterceptSub = document.getElementById('metric-intercept-sub');
+            const metricR2 = document.getElementById('metric-r2');
+            const metricRmse = document.getElementById('metric-rmse');
+            const metricRmseSub = document.getElementById('metric-rmse-sub');
+            
+            const plotImg = document.getElementById('dashboard-plot');
+            const outliersTbody = document.getElementById('outliers-tbody');
+            
+            let debounceTimer = null;
+            
+            // Format utility
+            function f(val, decimals=4) {
+                return parseFloat(val).toFixed(decimals);
+            }
+            
+            // Update function
+            async function updateDashboard() {
+                const n = inputN.value;
+                const a = inputA.value;
+                const b = inputB.value;
+                const v = inputVar.value;
+                const s = inputSeed.value;
+                
+                // Update text values
+                textN.innerText = n;
+                textA.innerText = f(a, 1);
+                textB.innerText = f(b, 1);
+                
+                // Update plot image src
+                const params = `n=${n}&a=${a}&b=${b}&var=${v}&seed=${s}&top_n=10`;
+                plotImg.src = `/plot?${params}`;
+                
+                // Fetch metrics & outliers
+                try {
+                    const response = await fetch(`/analyze?${params}`);
+                    const data = await response.json();
+                    
+                    if (data.status === 'success') {
+                        const m = data.regression_metrics;
+                        
+                        // Populate metrics
+                        metricSlope.innerText = f(m.est_slope);
+                        const slopeErrSign = m.slope_error >= 0 ? '+' : '';
+                        metricSlopeSub.innerHTML = `True: ${f(m.true_slope, 1)} | Error: <span class="${Math.abs(m.slope_error) < 0.1 ? 'card-error-green' : 'card-error-red'}">${slopeErrSign}${f(m.slope_error)}</span>`;
+                        
+                        metricIntercept.innerText = f(m.est_intercept);
+                        const intErrSign = m.intercept_error >= 0 ? '+' : '';
+                        metricInterceptSub.innerHTML = `True: ${f(m.true_intercept, 1)} | Error: <span class="${Math.abs(m.intercept_error) < 0.5 ? 'card-error-green' : 'card-error-red'}">${intErrSign}${f(m.intercept_error)}</span>`;
+                        
+                        metricR2.innerText = f(m.r2_score, 6);
+                        metricRmse.innerText = f(m.rmse);
+                        
+                        const trueNoiseSd = Math.sqrt(v);
+                        metricRmseSub.innerText = `Target noise SD: ${f(trueNoiseSd, 2)}`;
+                        
+                        // Populate table
+                        const outliers = data.top_10_outliers;
+                        outliersTbody.innerHTML = '';
+                        outliers.forEach(row => {
+                            const tr = document.createElement('tr');
+                            tr.innerHTML = `
+                                <td><span class="rank-badge">${row.outlier_rank}</span></td>
+                                <td>${f(row.x)}</td>
+                                <td>${f(row.actual_y)}</td>
+                                <td>${f(row.residual)}</td>
+                                <td>${f(row.absolute_residual)}</td>
+                            `;
+                            outliersTbody.appendChild(tr);
+                        });
+                    }
+                } catch (err) {
+                    console.error("Error updating dashboard data:", err);
+                }
+            }
+            
+            // Debounce function to prevent hammering API
+            function triggerUpdate() {
+                clearTimeout(debounceTimer);
+                debounceTimer = setTimeout(updateDashboard, 200);
+            }
+            
+            // Listeners
+            [inputN, inputA, inputB, inputVar, inputSeed].forEach(elem => {
+                elem.addEventListener('input', triggerUpdate);
+                elem.addEventListener('change', triggerUpdate);
+            });
+            
+            // Initial call
+            updateDashboard();
+        </script>
     </body>
     </html>
     """
     return HTMLResponse(content=html_content, status_code=200)
+
 
 
 # ==============================================================================
