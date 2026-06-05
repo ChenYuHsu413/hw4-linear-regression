@@ -95,3 +95,30 @@ This log records all terminal commands executed during the CRISP-DM linear regre
    & C:/Users/admin/AppData/Local/Programs/Python/Python314/python.exe "d:/AI Class ChenYu/AIClass/hw4/regression_analysis.py"
    ```
    *Result*: Completed successfully with variance = 100,000.
+
+## FastAPI Endpoint Executions (Added)
+
+1. **Install FastAPI and Uvicorn**
+   ```bash
+   pip install fastapi uvicorn
+   ```
+   *Result*: Installed starlette, pydantic, fastapi, uvicorn.
+
+2. **Start FastAPI Uvicorn Server**
+   ```bash
+   uvicorn main:app --host 127.0.0.1 --port 8000
+   ```
+   *Result*: Server started on port 8000.
+
+3. **Verify API /analyze Endpoint**
+   ```powershell
+   Invoke-RestMethod -Uri "http://127.0.0.1:8000/analyze?n=50&a=5&b=20&var=10"
+   ```
+   *Result*: Returns JSON object containing metrics and ranked outliers.
+
+4. **Verify API /plot Image Streaming**
+   ```powershell
+   Invoke-WebRequest -Uri "http://127.0.0.1:8000/plot?n=50&a=5&b=20&var=10" -OutFile "test_plot.png"
+   ```
+   *Result*: Downloaded rendered regression PNG.
+
